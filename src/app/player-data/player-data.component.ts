@@ -1,20 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PlayerDataService } from './player-data.service';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-player-data',
   templateUrl: './player-data.component.html',
 })
-export class PlayerDataComponent implements OnInit {
+export class PlayerDataComponent implements OnInit, OnDestroy {
   public playerData = new MatTableDataSource<PlayerDescriptionType>([]);
   public displayedColumns: string[] = [];
+  public playerSubscription: Subscription;
   @ViewChild("playerTable") table: MatTable<PlayerDescriptionType>
-
+  
   constructor(private playerDataService: PlayerDataService) {}
 
   ngOnInit(): void {
-    this.playerDataService.getPlayerData().subscribe((data: PlayerDescriptionType) => {
+    this.playerSubscription = this.playerDataService.getPlayerData().subscribe((data: PlayerDescriptionType) => {
       if (data) {
         if (this.displayedColumns.length == 0) {
           this.displayedColumns = Object.keys(data);
@@ -25,6 +27,9 @@ export class PlayerDataComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.playerSubscription?.unsubscribe();
+  }
 }
 
 export interface PlayerDescriptionType {
