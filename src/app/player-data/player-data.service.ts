@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PlayerDataModule } from './player-data.module';
 import { Observable } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
-import { PlayerDetailsModel } from '../shared/services/models/playerDetails.model';
+import { PlayerDetailsModel } from '../shared/models/playerDetails.model';
 
 @Injectable({
   providedIn: PlayerDataModule

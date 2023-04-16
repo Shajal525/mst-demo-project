@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PlayerDataService } from './player-data.service';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
-import { PlayerDetailsModel } from '../shared/services/models/playerDetails.model';
+import { PlayerDetailsModel } from '../shared/models/playerDetails.model';
 
 @Component({
   selector: 'app-player-data',
