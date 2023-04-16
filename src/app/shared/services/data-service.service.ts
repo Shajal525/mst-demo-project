@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { PlayerDescriptionType } from 'src/app/player-data/player-data.component';
+import { PlayerDetailsModel } from './models/playerDetails.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class DataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getPlayerData(): Observable<PlayerDescriptionType> {
-    return this.httpClient.get<PlayerDescriptionType>(this._url);
+  public getPlayerData(): Observable<PlayerDetailsModel> {
+    return this.httpClient.get<PlayerDetailsModel>(this._url);
   }
 }
