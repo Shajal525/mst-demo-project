@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
 import { PlayerDataModule } from './player-data.module';
-import { map } from 'rxjs/operators';
-import { DataService } from '../shared/services/data-service.service';
+import { Observable } from 'rxjs';
+import { io, Socket } from 'socket.io-client';
+import { PlayerDescriptionType } from './player-data.component';
 
 @Injectable({
   providedIn: PlayerDataModule
 })
 export class PlayerDataService {
+  private socket: Socket;
 
-  constructor(private dataService: DataService) { }
+  constructor() {
+    this.socket = io('https://mst-full-stack-dev-test.herokuapp.com/');
+  }
 
-  public getPlayerData(): any {
-    return this.dataService.getPlayerData().pipe(
-      map((result: any) => result.data),
-    );
+  public getPlayerData(): Observable<PlayerDescriptionType> {
+    return new Observable(observer => {
+      this.socket.on('data-update', response => {
+        observer.next(response);
+      });
+    });
   }
 }

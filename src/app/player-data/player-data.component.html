@@ -1,5 +1,5 @@
 <article>
-    <table mat-table [dataSource]="playerData">
+    <table #playerTable mat-table [dataSource]="playerData">
       <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
         <th mat-header-cell *matHeaderCellDef>
           {{col}}
