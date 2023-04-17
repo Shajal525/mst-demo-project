@@ -3,6 +3,7 @@ import { PlayerDataService } from './player-data.service';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { PlayerDetailsModel } from '../shared/models/playerDetails.model';
+import * as lodash from 'lodash-es';
 
 @Component({
   selector: 'app-player-data',
@@ -18,7 +19,7 @@ export class PlayerDataComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.playerSubscription = this.playerDataService.getPlayerData().subscribe((data: PlayerDetailsModel) => {
-      if (data) {
+      if (data != null && !lodash.isEmpty(data)) {
         if (this.displayedColumns.length == 0) {
           this.displayedColumns = Object.keys(data);
         }
